@@ -1,0 +1,58 @@
+#!/bin/bash
+
+RED="\033[1;31m"
+GREEN="\033[1;32m"
+NOCOLOR="\033[0m"
+YELLOW="\e[0;33m"
+
+read -s -p "Password : " PASSWORD
+echo -e "\n"
+
+PARAM=$1 # 
+
+# explanatory third-party documentation commands
+# docker
+# etc
+if [[ !(-z $PARAM) && ($PARAM = "--yes" || $PARAM = "-y") ]] ;then
+    echo $PASSWORD | sudo -S apt-get -y update
+    echo $PASSWORD | sudo -S apt-get -y upgrade
+    exit
+fi
+echo -e "step 1: ${GREEN}pre-configuring packages${NOCOLOR}"
+echo $PASSWORD | sudo -S dpkg --configure -a
+
+echo -e "\n"
+
+echo -e "step 2: ${GREEN}fix and attempt to correct a system with broken dependencies${NOCOLOR}"
+echo $PASSWORD | sudo -S apt-get -y install -f
+
+echo
+
+echo -e "step 3: ${GREEN}update apt cache${NOCOLOR}"
+echo $PASSWORD | sudo -S apt-get -y update
+
+echo
+
+echo -e "step 4: ${GREEN}upgrade packages${NOCOLOR}"
+echo $PASSWORD | sudo -S apt-get -y upgrade
+
+
+echo
+
+echo -e "step 5: ${GREEN}distribution upgrade${NOCOLOR}"
+echo $PASSWORD | sudo -S apt-get -y dist-upgrade
+
+
+echo
+
+echo -e "step 6: ${GREEN}remove unused packages${NOCOLOR}"
+echo $PASSWORD | sudo -S apt-get -y --purge autoremove
+
+echo
+
+if [[ -z /var/run/reboot-required ]]; then
+    echo -e "${YELLOW} ¡¡ REBOOT REQUIRED !! ${NOCOLOR}"
+fi
+
+
+
