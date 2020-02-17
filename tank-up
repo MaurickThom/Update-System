@@ -5,6 +5,26 @@ GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 YELLOW="\e[0;33m"
 
+leave(){
+    echo
+    echo -e $GREEN
+    echo "---------------------"
+    echo "- UPDATE COMPLETE ! -"
+    echo "---------------------" 
+    echo -e $NOCOLOR
+    exit
+}
+
+check_exit_status(){
+    echo
+    if [[ $? -ne 0]];then
+        echo -e "${RED}[ERROR] Process Failed!${NOCOLOR}"
+        exit 1
+    fi
+    echo
+}
+
+
 read -s -p "Password : " PASSWORD
 echo -e "\n"
 
@@ -15,40 +35,50 @@ PARAM=$1 #
 # etc
 if [[ !(-z $PARAM) && ($PARAM = "--yes" || $PARAM = "-y") ]] ;then
     echo $PASSWORD | sudo -S apt-get -y update
+    check_exit_status
     echo $PASSWORD | sudo -S apt-get -y upgrade
-    exit
+    check_exit_status
+    exit 1
 fi
 echo -e "step 1: ${GREEN}pre-configuring packages${NOCOLOR}"
 echo $PASSWORD | sudo -S dpkg --configure -a
+check_exit_status
 
 echo -e "\n"
 
 echo -e "step 2: ${GREEN}fix and attempt to correct a system with broken dependencies${NOCOLOR}"
 echo $PASSWORD | sudo -S apt-get -y install -f
+check_exit_status
 
 echo
 
 echo -e "step 3: ${GREEN}update apt cache${NOCOLOR}"
 echo $PASSWORD | sudo -S apt-get -y update
+check_exit_status
 
 echo
 
 echo -e "step 4: ${GREEN}upgrade packages${NOCOLOR}"
 echo $PASSWORD | sudo -S apt-get -y upgrade
+check_exit_status
 
 
 echo
 
 echo -e "step 5: ${GREEN}distribution upgrade${NOCOLOR}"
 echo $PASSWORD | sudo -S apt-get -y dist-upgrade
+check_exit_status
 
 
 echo
 
 echo -e "step 6: ${GREEN}remove unused packages${NOCOLOR}"
 echo $PASSWORD | sudo -S apt-get -y --purge autoremove
+check_exit_status
 
 echo
+
+leave
 
 if [[ -z /var/run/reboot-required ]]; then
     echo -e "${YELLOW} ¡¡ REBOOT REQUIRED !! ${NOCOLOR}"
