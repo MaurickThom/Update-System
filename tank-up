@@ -75,6 +75,10 @@ echo
 echo -e "step 6: ${GREEN}remove unused packages${NOCOLOR}"
 echo $PASSWORD | sudo -S apt-get -y --purge autoremove
 check_exit_status
+echo $PASSWORD | sudo -S apt-get -y autoclean
+check_exit_status
+echo $PASSWORD | sudo -S updatedb
+check_exit_status
 
 echo
 
