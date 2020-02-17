@@ -1,6 +1,6 @@
 
 ````sh
-    chmod 744 tank-up
+    chmod 755 tank-up
     # .zshrc
     export PATH=~/bin:$PATH
     # TERMINAL
