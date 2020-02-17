@@ -21,6 +21,8 @@ check_exit_status(){
         echo -e "${RED}[ERROR] Process Failed!${NOCOLOR}"
         exit 1
     fi
+    echo 
+    echo -e "${GREEN} SUCCESS ${NOCOLOR}"
     echo
 }
 
