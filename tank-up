@@ -17,7 +17,7 @@ leave(){
 
 check_exit_status(){
     echo
-    if [[ $? -ne 0]];then
+    if [[ $? -ne 0 ]]; then
         echo -e "${RED}[ERROR] Process Failed!${NOCOLOR}"
         exit 1
     fi
@@ -80,7 +80,7 @@ echo
 
 leave
 
-if [[ -z /var/run/reboot-required ]]; then
+if [ -f /var/run/reboot-required ]; then
     echo -e "${YELLOW} ¡¡ REBOOT REQUIRED !! ${NOCOLOR}"
 fi
 
