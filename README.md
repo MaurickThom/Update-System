@@ -1,4 +1,6 @@
 
+# **Installation**
+
 ````sh
     git clone https://github.com/MaurickThom/Update-System.git ~/bin/ && cd ~/bin/
     chmod 755 tank-up
