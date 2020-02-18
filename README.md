@@ -2,7 +2,7 @@
 # **Installation**
 
 ````sh
-    λ > git clone https://github.com/MaurickThom/Update-System.git ~/bin/ && cd ~/bin
+    λ > git clone https://github.com/MaurickThom/Update-System.git ~/bin && cd ~/bin
     λ > chmod 755 tank-up
     λ > vim ~/.zshrc
     # write this
