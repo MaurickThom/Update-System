@@ -1,0 +1,10 @@
+progress_bar_void(){
+    echo -n '###                   (33%)\r\c'
+    sleep 1
+    echo -n '###############       (66%)\r\c'
+    sleep 1
+    echo -n '####################  (100%)\r\c'
+    sleep 1
+}
+
+progress_bar_void

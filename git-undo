@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -euo pipefail
+
+git reset HEAD~1 --mixed
