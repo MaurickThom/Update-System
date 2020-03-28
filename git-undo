@@ -2,4 +2,13 @@
 
 set -euo pipefail
 
+git::is_in_repo() {
+  git rev-parse HEAD >/dev/null 2>&1
+}
+
+if (! git::is_in_repo); then
+  echo "Not in a git repo!"
+  exit 0
+fi
+
 git reset HEAD~1 --mixed
