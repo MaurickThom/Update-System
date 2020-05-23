@@ -19,7 +19,7 @@ check_exit_status(){
     echo
     if [[ $? -ne 0 ]]; then
         echo -e "${RED}[ERROR] Process Failed!${NOCOLOR}"
-        exit 1
+        exit 0
     fi
     echo 
     echo -e "${GREEN} SUCCESS ${NOCOLOR}"
@@ -35,12 +35,12 @@ PARAM=$1 #
 # explanatory third-party documentation commands
 # docker
 # etc
-if [[ !(-z $PARAM) && ($PARAM = "--yes" || $PARAM = "-y") ]] ;then
+if [[ !(-z $PARAM) && ($PARAM = "--quick" || $PARAM = "-q") ]] ;then
     echo $PASSWORD | sudo -S apt-get -y update
     check_exit_status
     echo $PASSWORD | sudo -S apt-get -y upgrade
     check_exit_status
-    exit 1
+    exit 0
 fi
 echo -e "step 1: ${GREEN}pre-configuring packages${NOCOLOR}"
 echo $PASSWORD | sudo -S dpkg --configure -a
